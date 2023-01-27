@@ -1,0 +1,72 @@
+.top-nav {
+    padding:10px 10px 12px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #8EC5FC;
+    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+    box-shadow: 5px 5px 25px 1px rgb(117, 114, 114);
+    font-size: 27px;
+    font-weight: 600;
+}
+.bgHome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-size: cover;
+}
+
+
+.home-heading {
+    margin-top: 56px;
+}
+
+.label-container { 
+    font-family: 'Roboto';
+    color: #475569;  
+    font-size: 14px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.label-elements {
+    font-family: 'Roboto';
+    font-size: 14px;
+    margin-top: 18px;
+    align-items: flex-start;
+}
+
+.register-inputs {
+    font-size: 14px;
+    width: 220px;
+    height: 20px;
+    border: 1px solid #1f2020;
+    /* background-color: #ffffff; */
+    background-color: #e2e8f0;
+    color: #64748b;
+    border-radius: 2px;
+    margin-top: 5px;
+    padding: 8px 16px 8px 16px;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 22px;
+}
+
+.home-button {
+  color: #ffffff;
+  background-color: #1c55e6;
+  text-align: center;
+  border: none;
+  height: 35px;
+  width: 90px;
+  border-radius: 7px;
+}
+
+.errMsg {
+    color: #dc3545;
+  }
