@@ -56,29 +56,35 @@ app.post('/register',async(req,res)=>{
 // Login Api
 app.post('/login',(req,res)=>{
     const {email,password}=req.body; 
+    if(!email || !password){
+      return res.status(400).json({message: "Enter valid email and password"})
+    }
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({message: "Enter valid email"})
+    }
     connection.query(`SELECT * from users WHERE email= ?`,[email],(err,data)=>{
-        if(err){
+      if(err){
+        return res.status(500).json({err})
+      }
+      if(data.length>0){
+        const hashedPasswd = data[0].password;
+        bcrypt.compare(password,hashedPasswd,(err,result)=>{
+          if(err){
             return res.status(500).json({err})
-        }
-        if(data.length>0){
-            const hashedPasswd = data[0].password;
-            bcrypt.compare(password,hashedPasswd,(err,result)=>{
-                console.log(result)
-                if(err){
-                    return res.status(500).json({err})
-                }
-                else if(result){
-                    return res.status(200).json({message:"Logged in successfully"})
-
-                }else{
-                    return res.status(400).json({message:"Enter valid password"})
-                }
-            })
-        }else{
-            return res.status(404).json({message:"Enter Valid Email"})
-        }
+          }
+          else if(result){
+            return res.status(200).json({message:"Logged in successfully"})
+          }else{
+            return res.status(400).json({message:"Enter Correct password"})
+          }
+        })
+      }else{
+        return res.status(404).json({message:"Enter Correct Email"})
+      }
     })
-})
+  })
+  
 
 // student register
 

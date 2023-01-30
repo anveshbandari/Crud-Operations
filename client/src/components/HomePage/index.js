@@ -24,6 +24,11 @@ const Home = () => {
         navigate('/Register');
     }
 
+    const logoutHandler = (event) => {
+        event.preventDefault();
+        navigate('/')
+    }
+
     const DeleteUser=(id)=>{
         swal({
             title: "Are you sure?",
@@ -53,8 +58,11 @@ const Home = () => {
     
     return (
         <div className='table-container'>
-            <div>
+            <div className='top-container'>
                 <button onClick={onChangeHandler} className='table-button' > Add Student </button>
+            </div>
+            <div className='top-container'>
+            <button onClick={logoutHandler} className='table-button' > LogOut </button>
             </div>
             <div className='table-container'>
                 <table>

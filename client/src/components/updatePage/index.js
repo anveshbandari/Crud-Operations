@@ -26,6 +26,11 @@ const Update = () => {
             const onlyLettersAndSpaces = nameInput.replace(/[^a-zA-Z\s]/g, '');
             setData({ ...data, name: onlyLettersAndSpaces });
         }
+        if (event.target.id === "contact") {
+            const contactInput = event.target.value;
+            const onlyNums = contactInput.replace(/[^0-9]/g, '');
+            setData({ ...data, contact: onlyNums });
+        }
     }
     useEffect(()=>{
         if(id){
@@ -50,7 +55,7 @@ const Update = () => {
                 text:"contact must be 10 digits",
                 icon:'warning'
             })
-        } else if (email.slice(-10) !== ("@gmail.com")) {
+        } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
             swal({
                 text:"Please enter a Valid Email",
                 icon:'warning'
@@ -107,7 +112,7 @@ const Update = () => {
                     id='contact'
                     value={contact}
                     onChange={onChangeHandler}
-                    type="number"
+                    type="text"
                     required
                     />
                 </div>

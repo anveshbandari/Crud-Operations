@@ -23,8 +23,14 @@ const Register = () => {
             const onlyLettersAndSpaces = nameInput.replace(/[^a-zA-Z\s]/g, '');
             setData({ ...data, name: onlyLettersAndSpaces });
         }
+        if (event.target.id === "contact") {
+            const contactInput = event.target.value;
+            const onlyNums = contactInput.replace(/[^0-9]/g, '');
+            setData({ ...data, contact: onlyNums });
+        }
     }
 
+    
     const onSubmitHandler = (event) => {
         event.preventDefault();
 
@@ -33,7 +39,7 @@ const Register = () => {
                 text:"contact must be 10 digits",
                 icon:'warning',
             })
-        } else if (email.slice(-10) !== ("@gmail.com")) {
+        } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
             swal({
                 text:"please enter a valid email",
                 icon:'warning'
@@ -87,7 +93,7 @@ const Register = () => {
                     id='contact'
                     value={contact}
                     onChange={onChangeHandler}
-                    type="number"
+                    type="text"
                     maxLength={10}
                     required
                     />

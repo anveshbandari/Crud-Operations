@@ -15,6 +15,14 @@
     width: 100px;
     border-radius: 7px;
 }
+
+.top-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+
+}
 .table-container{
   width: 100vw;
   overflow: scroll;
