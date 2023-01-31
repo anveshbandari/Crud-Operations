@@ -1,7 +1,8 @@
 import axios from 'axios'
 import React , {useState} from 'react'
 import swal from 'sweetalert'
-import { useNavigate } from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css'
 
 
@@ -39,6 +40,7 @@ const Register = () => {
                 text:"contact must be 10 digits",
                 icon:'warning',
             })
+            // eslint-disable-next-line
         } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
             swal({
                 text:"please enter a valid email",
@@ -58,6 +60,11 @@ const Register = () => {
                 button:'Goto Home'
             }).then(()=>{
                 navigate('/Home')
+            }).then(() =>{
+                navigate.push({
+                    pathname: '/Home',
+                    search: '?success=Data Added Successfully'
+                  });
             })
         }).catch(err=>{
             const erorMessage =err.response.data?.message

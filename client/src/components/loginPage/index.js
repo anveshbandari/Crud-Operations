@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import swal from "sweetalert";
 import axios from "axios";
 
 import "./index.css";
@@ -24,7 +23,10 @@ const Login = () => {
     setEmailError("");
     setPasswordError("");
 
-    if (!data.email) {
+    if (!email || !password) {
+      setEmailError("Incorrect Email");
+      setPasswordError("Incorrect Password");
+    } else if (!data.email) {
         setEmailError("Incorrect Email");
       } else if (!data.password) {
         setPasswordError("Incorrect Password");
@@ -41,6 +43,10 @@ const Login = () => {
               setEmailError("Incorrect Email");
             } else if (err.response.status === 400 && err.response.data.message === "Enter valid password") {
               setPasswordError("Incorrect Password");
+            } else if (err.response.status === 404 && err.response.data.message === "Enter Correct Email") {
+              setEmailError("Incorrect Email");
+            } else if (err.response.status === 400 && err.response.data.message === "Enter Correct password") {
+              setPasswordError("Incorrect Password");
             }
           });
         }
@@ -51,7 +57,7 @@ const Login = () => {
     <div className="bg-container">
       <div className="login-container">
         <h1 className="title">Login</h1>
-        <form onSubmit={submitHandler}>
+        { <form onSubmit={submitHandler}>
           <div className="label-container">
             <label className="login-labels" htmlFor="email">
               Email
@@ -83,7 +89,7 @@ const Login = () => {
           <div className="button-container">
             <button className="button">LogIn</button>
           </div>
-        </form>
+        </form>}
       </div>
     </div>
   );

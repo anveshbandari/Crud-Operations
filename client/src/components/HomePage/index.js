@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React,{useState,useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import swal from 'sweetalert';
 import './index.css'
 
@@ -18,6 +19,8 @@ const Home = () => {
     },[])
 
     const navigate = useNavigate();
+    const successMessage = new URLSearchParams(navigate.search).get('success');
+
 
     const onChangeHandler = (event) => {
         event.preventDefault();
@@ -57,44 +60,48 @@ const Home = () => {
     }
     
     return (
-        <div className='table-container'>
-            <div className='top-container'>
-                <button onClick={onChangeHandler} className='table-button' > Add Student </button>
+        <div className='container'>
+            {successMessage &&
+            <div className="mt-3 text-center alert alert-success alert-dismissible fade show" role="alert">Successful registered</div>
+            }
+            <div class="d-flex justify-content-between  mt-5 mb-5">
+                <div>
+                    <button class="h4 btn btn-success text-light" onClick={onChangeHandler}>Add Student</button>
+                </div>
+                <div>
+                    <button onClick={logoutHandler} class="btn btn-primary">LogOut</button>
+                </div>
             </div>
-            <div className='top-container'>
-            <button onClick={logoutHandler} className='table-button' > LogOut </button>
-            </div>
-            <div className='table-container'>
-                <table>
-                    <thead>
-                    <tr>
-                        
-                        <th>Full Name</th>
-                        <th>Mobile</th>
-                        <th>Email</th>
-                        <th>Adress</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        students?.map((student)=>{
-                            return (
-                            <tr key={student.id}>
-                                <td>{student.name}</td>
-                                <td>{student.contact}</td>
-                                <td>{student.email}</td>
-                                <td>{student.address}</td>
-                                <td onClick={() => navigate(`/Update/${student.id}`)} ><button className='update-button' >Update</button></td> 
-                                <td><button className='delete-button' onClick={()=>{DeleteUser(student.id)}}>Delete</button></td>
-                            </tr>)
-                        })
-                    }
-                    </tbody>                                                                                                                                                                           
-                </table>           
+            {/* <div > */}
+            <table className="table border table-bordered border-dark table-striped  table-center mt-1" >
+                <thead className="thead-dark">
+                <tr>
+                    <th scope="col" >Full Name</th>
+                    <th scope="col" >Mobile</th>
+                    <th scope="col" >Email</th>
+                    <th scope="col" >Adress</th>
+                    <th scope="col" >Edit</th>
+                    <th scope="col" >Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                {
+                    students?.map((student)=>{
+                        return (
+                        <tr key={student.id}>
+                            <td>{student.name}</td>
+                            <td>{student.contact}</td>
+                            <td>{student.email}</td>
+                            <td>{student.address}</td>
+                            <td onClick={() => navigate(`/Update/${student.id}`)} ><button className='update-button' >Update</button></td> 
+                            <td><button className='delete-button' onClick={()=>{DeleteUser(student.id)}}>Delete</button></td>
+                        </tr>)
+                    })
+                }
+                </tbody>                                                                                                                                                                           
+            </table>           
              </div>
-        </div>
+        // </div>
     )
 }
 
