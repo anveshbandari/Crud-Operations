@@ -54,10 +54,14 @@ const Login = () => {
 
   const { email, password } = { ...data };
   return (
+    <>
     <div className="bg-container">
       <div className="login-container">
-        <h1 className="title">Login</h1>
+        {/* <h1 className="title">Login</h1> */}
         { <form onSubmit={submitHandler}>
+          <div className="d-flex justify-content-center">
+            <h className="login-heading">LOGIN</h>
+          </div>
           <div className="label-container">
             <label className="login-labels" htmlFor="email">
               Email
@@ -86,12 +90,14 @@ const Login = () => {
             />
             {passwordError && <p className="errMsg">{passwordError}</p>}
           </div>
-          <div className="button-container">
-            <button className="button">LogIn</button>
+          {/* <button className="btn btn-primary">LogIn</button> */}
+          <div className="d-flex justify-content-center my-3">
+            <button className="btn btn-primary">LogIn</button>
           </div>
         </form>}
       </div>
     </div>
+    </>
   );
 };
 

@@ -92,7 +92,7 @@ app.post('/student/register',async(req,res)=>{
     const {name,contact,email,address}=req.body;
 
    // check unique phone number
-    connection.query(`SELECT * FROM managementsystem where contact = ?`,[contact],(err,data)=>{
+    connection.query(`SELECT * FROM table1 where contact = ?`,[contact],(err,data)=>{
         if(err){
             return res.status(500).json({message:"Internal server error in db query"})
         }
@@ -100,7 +100,7 @@ app.post('/student/register',async(req,res)=>{
             return res.status(400).json({message:"Mobile already exists"})
         }else{
         // check unique email 
-            connection.query(`SELECT * FROM managementsystem where email = ?`,[email],(err,data)=>{
+            connection.query(`SELECT * FROM table2 where email = ?`,[email],(err,data)=>{
                 if(err){
                     return res.status(500).json({message:"Internal server error in db query"})
                 }
@@ -108,13 +108,20 @@ app.post('/student/register',async(req,res)=>{
                     return res.status(400).json({message:"Email already exists"})
                 }else{
                     //create user
-                    connection.query(`INSERT INTO managementsystem (name,contact, email,address) VALUES (?,?,?,?);`,
-                    [name,contact,email,address],
+                    connection.query(`INSERT INTO table1 (name,contact) VALUES (?,?);`,
+                    [name,contact],
                     (err,data)=>{
+                        console.log(data.insertId)
+                        let tableId  = data.insertId
                         if(err){
                             return res.status(500).json(err)
                         }
-                        return res.status(200).json(data)
+                        connection.query(`INSERT INTO table2 (email,address,table1_id) VALUES (?,?,?);`,[email,address,tableId],(err,data)=>{
+                            if(err){
+                                return res.status(500).json(err)
+                            }
+                            return res.status(200).json(data)
+                        })
                     })
                 }
             })
@@ -124,7 +131,7 @@ app.post('/student/register',async(req,res)=>{
 
 // Get all students
 app.get('/students',(req,res)=>{
-    connection.query(`SELECT * FROM managementsystem`,(err,data)=>{
+    connection.query(`SELECT * FROM table1 join table2 on table1.id = table2.table1_id`,(err,data)=>{
         if(err){
             return res.status(500).json(err)
         }
@@ -135,7 +142,7 @@ app.get('/students',(req,res)=>{
 // Get student by id
 app.get('/students/:id',(req,res)=>{
     const {id} =req.params
-    connection.query(`SELECT * FROM managementsystem WHERE id = ?`,[id],(err,data)=>{
+    connection.query(`SELECT * FROM table1 join table2 on table1.id = table2.table1_id WHERE table1.id = ?`,[id],(err,data)=>{
         if(err){
             return res.status(500).json(err)
         }
@@ -147,7 +154,14 @@ app.get('/students/:id',(req,res)=>{
 app.patch('/students/:id',(req,res)=>{
     const {id} =req.params;
     const {name,contact, email,address}=req.body;
-    connection.query(`UPDATE managementsystem SET name=?,contact=?,email=?,address=? WHERE id = ?`,
+    connection.query(`
+    UPDATE table1
+    JOIN table2 ON table1.id = table2.table1_id
+    SET table1.name = ?,
+        table1.contact = ?,
+        table2.email=?,
+        table2.address=? 
+           WHERE table1.id = ?`,
     [name,contact,email,address,id],
     (err,data)=>{
         if(err){
@@ -161,7 +175,10 @@ app.patch('/students/:id',(req,res)=>{
 //delete record
 app.delete('/students/:id',(req,res)=>{
     const {id} =req.params
-    connection.query(`DELETE FROM managementsystem WHERE id = ?`,[id],(err,data)=>{
+    connection.query(`DELETE table1, table2
+    FROM table1
+    JOIN table2 ON table1.id = table2.table1_id
+    WHERE table1.id=?`,[id],(err,data)=>{
         if(err){
             return res.status(500).json(err)
         }

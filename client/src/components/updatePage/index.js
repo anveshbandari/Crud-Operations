@@ -50,6 +50,7 @@ const Update = () => {
     },[id])
     const onSubmitHandler = (event) => {    
         event.preventDefault();
+        // navigate("/Home?update=true")
         if (contact.length !== 10) {
             swal({
                 text:"contact must be 10 digits",
@@ -73,7 +74,7 @@ const Update = () => {
                     icon:'success',
                     button:'Ok'
                 }).then(()=>{
-                    navigate('/Home')
+                    navigate('/Home?status=Updated')
                 })
             }).catch(err=>{
                 const erorMessage =err.response.data?.message
@@ -90,9 +91,15 @@ const Update = () => {
 
     return (
         <>
+        <div className='bg-dark py-3'>
+            <div className='container d-flex justify-content-center'>
+                <div className='text-white h3'>UPDATE PAGE</div>
+            </div>
+        </div>
         {
-            !isLoading && <div className='bgUpdate-container'>
-            <h1 className='home-heading'>Enter Details</h1>
+            // !isLoading &&
+             <div className='bgUpdate-container'>
+            {/* <h1 className='home-heading mt-5'>UPDATE Details</h1> */}
             <form className='form-container' onSubmit={onSubmitHandler}>
                 <div className='label-container'>
                     <label className='label-elements' htmlFor='lastName'>Full Name</label>
@@ -138,8 +145,8 @@ const Update = () => {
                     required
                     />
                 </div>
-                <div className='btn-container'>
-                    <button className='home-button'>Save</button>
+                <div className='d-flex justify-content-center my-3'>
+                    <button className='btn btn-primary'>Submit</button>
                 </div>
             </form>
         </div>

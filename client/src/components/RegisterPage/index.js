@@ -34,6 +34,7 @@ const Register = () => {
     
     const onSubmitHandler = (event) => {
         event.preventDefault();
+        // navigate("/Home?status=register")
 
         if(contact.length!==10){
             swal({
@@ -59,12 +60,7 @@ const Register = () => {
                 icon:'success',
                 button:'Goto Home'
             }).then(()=>{
-                navigate('/Home')
-            }).then(() =>{
-                navigate.push({
-                    pathname: '/Home',
-                    search: '?success=Data Added Successfully'
-                  });
+                navigate('/Home?status=Registered')
             })
         }).catch(err=>{
             const erorMessage =err.response.data?.message
@@ -79,13 +75,20 @@ const Register = () => {
     const {name,contact,email,address} = {...data}
     return (
         <>
+        <div className='bg-dark py-3'>
+            <div className='container d-flex justify-content-center'>
+                <div className='text-white h3'>REGISTER PAGE</div>
+            </div>
+        </div>
         <div className='bgHome-container'>
-            <h1 className='home-heading'>Enter Details</h1>
             <form className='form-container' onSubmit={onSubmitHandler}>
+                {/* <div className='heading d-flex justify-content-center'>
+                    <h1 className='home-heading'>Register Details</h1>
+                </div> */}
                 <div className='label-container'>
                     <label className='label-elements' htmlFor='lastName'>Full  Name</label>
                     <input
-                    className='register-inputs'
+                    className='login-inputs'
                     id='name'
                     value={name}
                     onChange={onChangeHandler}
@@ -96,7 +99,7 @@ const Register = () => {
                 <div className='label-container'>
                     <label className='label-elements' htmlFor='phoneNo'>Contact</label>
                     <input
-                    className='register-inputs'
+                    className='login-inputs'
                     id='contact'
                     value={contact}
                     onChange={onChangeHandler}
@@ -108,7 +111,7 @@ const Register = () => {
                 <div className='label-container'>
                     <label className='label-elements' htmlFor='email'>Email</label>
                     <input
-                    className='register-inputs'
+                    className='login-inputs'
                     id='email'
                     value={email}
                     onChange={onChangeHandler}
@@ -119,7 +122,7 @@ const Register = () => {
                 <div className='label-container'>
                     <label className='label-elements' htmlFor='address'>Address</label>
                     <input
-                    className='register-inputs'
+                    className='login-inputs'
                     id='address'
                     value={address}
                     onChange={onChangeHandler}
@@ -127,8 +130,8 @@ const Register = () => {
                     required
                     />
                 </div>
-                <div className='btn-container'>
-                    <button className='home-button'>Submit</button>
+                <div className='d-flex justify-content-center my-5'>
+                    <button className='btn btn-primary'>Submit</button>
                 </div>
             </form>
         </div>

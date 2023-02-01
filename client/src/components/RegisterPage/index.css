@@ -1,4 +1,4 @@
-.top-nav {
+/* .top-nav {
     padding:10px 10px 12px;
     margin: auto;
     display: flex;
@@ -43,12 +43,35 @@
     width: 220px;
     height: 20px;
     border: 1px solid #1f2020;
-    /* background-color: #ffffff; */
+    /* background-color: #ffffff; 
     background-color: #e2e8f0;
     color: #64748b;
     border-radius: 2px;
     margin-top: 5px;
     padding: 8px 16px 8px 16px;
+} */
+
+.bgHome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-size: cover;
+    /* background-color: #888; */
+}
+
+input {
+	display: block;
+	border: 2px solid #ccc;
+	width: 95%;
+	padding: 10px;
+	margin: 10px auto;
+	border-radius: 5px;
+}
+label {
+	color: rgb(17, 13, 13);
+	font-size: 18px;
+	padding: 10px;
 }
 
 .btn-container {
@@ -65,7 +88,7 @@
   height: 35px;
   width: 90px;
   border-radius: 7px;
-}
+} */
 
 .errMsg {
     color: #dc3545;

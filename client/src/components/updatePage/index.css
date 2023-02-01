@@ -1,4 +1,12 @@
-.top-nav {
+.bgUpdate-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-size: cover;
+}
+
+/* .top-nav {
     padding:10px 10px 12px;
     margin: auto;
     display: flex;
@@ -10,14 +18,6 @@
     font-size: 27px;
     font-weight: 600;
 }
-.bgUpdate-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    background-size: cover;
-}
-
 
 .home-heading {
     margin-top: 56px;
@@ -43,7 +43,7 @@
     width: 220px;
     height: 20px;
     border: 1px solid #1f2020;
-    /* background-color: #ffffff; */
+    /* background-color: #ffffff; 
     background-color: #e2e8f0;
     color: #64748b;
     border-radius: 2px;
@@ -65,4 +65,4 @@
   height: 35px;
   width: 90px;
   border-radius: 7px;
-}
+} */
